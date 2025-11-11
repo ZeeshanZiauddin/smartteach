@@ -1,0 +1,67 @@
+ // public function ask(): void
+    // {
+    //     if (blank($this->question)) {
+    //         Notification::make()->title('Please enter a question.')->warning()->send();
+    //         return;
+    //     }
+
+    //     $this->messages[] = ['role' => 'user', 'content' => $this->question];
+
+    //     try {
+    //         if ($this->selectedType === 'quiz') {
+    //             $item = Quiz::whereIn('course_id', auth()->user()->enrolledCourses()->pluck('courses.id'))
+    //                 ->latest()
+    //                 ->first();
+
+    //             $context = $item
+    //                 ? sprintf(
+    //                     "You are helping a student with a quiz titled '%s'. Description: %s. Topics: %s. Start: %s End: %s",
+    //                     $item->title ?? 'Unknown Quiz',
+    //                     $item->description ?? 'No description.',
+    //                     is_array($item->topic) ? implode(', ', $item->topic) : $item->topic,
+    //                     optional($item->start_at)->format('d M Y H:i'),
+    //                     optional($item->end_at)->format('d M Y H:i')
+    //                 )
+    //                 : 'No quiz found for your enrolled courses.';
+    //         } else {
+    //             $item = \App\Models\Assignment::whereIn('course_id', auth()->user()->enrolledCourses()->pluck('courses.id'))
+    //                 ->latest()
+    //                 ->first();
+
+    //             $context = $item
+    //                 ? sprintf(
+    //                     "You are helping a student with an assignment titled '%s'. Instructions: %s. Due date: %s",
+    //                     $item->title ?? 'Unknown Assignment',
+    //                     $item->instructions ?? 'No details available.',
+    //                     optional($item->due_date)->format('d M Y H:i')
+    //                 )
+    //                 : 'No assignment found for your enrolled courses.';
+    //         }
+
+
+    //         $response = Http::withHeaders([
+    //             'Authorization' => 'Bearer ' . env('HF_TOKEN'),
+    //             'Content-Type' => 'application/json',
+    //         ])->post('https://router.huggingface.co/v1/chat/completions', [
+    //                     "model" => "openai/gpt-oss-20b:groq",
+    //                     "stream" => false,
+    //                     "messages" => array_merge([
+    //                         [
+    //                             'role' => 'system',
+    //                             'content' => "You are an AI tutor for a quiz system. Use this quiz info to answer contextually:\n\n{$context}",
+    //                         ],
+    //                     ], $this->messages),
+    //                 ]);
+
+    //         $json = $response->json();
+    //         $answer = $json['choices'][0]['message']['content'] ?? 'No response from AI.';
+
+    //         // --- Example AI Response Stub (replace with your real API later)
+    //         // $answer = "Here’s what I can tell you about your **{$this->selectedType}**.\n\n_Context_: {$context}";
+    //     } catch (\Throwable $e) {
+    //         $answer = '⚠️ Error fetching info: ' . $e->getMessage();
+    //     }
+
+    //     $this->messages[] = ['role' => 'assistant', 'content' => $answer];
+    //     $this->question = '';
+    // }
