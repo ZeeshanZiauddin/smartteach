@@ -3,14 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Kirschbaum\Commentions\Contracts\Commenter;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements Commenter
+class User extends Authenticatable implements Commenter, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
@@ -24,6 +26,7 @@ class User extends Authenticatable implements Commenter
         'name',
         'email',
         'password',
+        'avatar_url',
     ];
 
     /**
@@ -52,7 +55,7 @@ class User extends Authenticatable implements Commenter
 
     public function courses()
     {
-        return $this->hasMany(Course::class, 'user_id');
+        return $this->hasOne(Course::class, 'user_id');
     }
     public function enrolledCourses()
     {
@@ -61,5 +64,27 @@ class User extends Authenticatable implements Commenter
     }
 
 
+    public function studentProfile()
+    {
+        return $this->hasOne(\App\Models\StudentProfile::class);
+    }
+
+    public function teacherProfile()
+    {
+        return $this->hasOne(\App\Models\TeacherProfile::class);
+    }
+
+    public function managerProfile()
+    {
+        return $this->hasOne(\App\Models\ManagerProfile::class);
+    }
+
+
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');
+        return $this->$avatarColumn ? Storage::url($this->$avatarColumn) : null;
+    }
 
 }

@@ -17,6 +17,11 @@ class Course extends Model
         'to_date',
     ];
 
+    public function enrollmentLinks()
+    {
+        return $this->hasMany(CourseEnrollmentLink::class);
+    }
+
     public function teacher()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -50,8 +50,7 @@ class QuickActionsWidget extends Widget
                     ->label('View Submissions')
                     ->icon('heroicon-o-folder-open')
                     ->color('secondary')
-                    ->badge()
-                ,
+                    ->badge(),
             ];
         }
 
@@ -61,15 +60,13 @@ class QuickActionsWidget extends Widget
                     ->label('My Courses')
                     ->icon('heroicon-o-academic-cap')
                     ->badge()
-                    ->color('secondary')
-                ,
+                    ->color('secondary'),
 
                 Action::make('downloadMaterials')
                     ->label('Download Materials')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->badge()
-                    ->color('secondary')
-                ,
+                    ->color('secondary'),
             ];
         }
 

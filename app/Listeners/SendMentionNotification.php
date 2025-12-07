@@ -24,7 +24,7 @@ class SendMentionNotification
     {
         $mentionedUser = $event->user;
         $comment = $event->comment;
-        dd($comment);
+        // dd($comment);
         // ✅ Ensure commenter relationship is loaded safely
         $commenterName = optional($comment->commenter)->name ?? 'Someone';
 
